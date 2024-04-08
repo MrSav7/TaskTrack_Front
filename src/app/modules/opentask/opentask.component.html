@@ -1,0 +1,81 @@
+<div>
+    @if(!!taskInfo){
+    <div class="otask">
+        <div class="otask-header">
+            <div class="otask-header-info">
+                <span>Номер заявки:{{taskInfo.taskId}}</span>
+                <span>|Тип:{{taskInfo.productTypeName}}</span>
+                <span>|Бренд:{{taskInfo.brandName}}</span>
+                <span>|Модель:{{taskInfo.taskProductModel}}</span>
+            </div>
+            <div class="otask-header-date">
+                <span>Дата создания: {{taskInfo.taskCreateDate | date:'dd-MM-yyyy'}}</span>
+            </div>
+        </div>
+        <div class="otask-st">
+            <div class="otask-st-body">
+                <p>Описание проблемы заявителя: {{taskInfo.taskUserProblemDesc}}</p>
+                <p>Причина неисправности: {{taskInfo.taskProblems}}</p>
+                <span>ФИО заявителя: {{taskInfo.customerName}}</span> <br>
+                <span>Тел. номер заявителя: {{taskInfo.customerPhone}}</span> <br>
+                <span>Исполнитель: {{taskInfo.executor}} ({{taskInfo.execId}})</span> <br>
+            </div>
+            <div class="otask-st-dates">
+                <span>Планируемая дата закрытия: {{taskInfo.taskPlanExeTime ? 
+                    (taskInfo.taskPlanExeTime | date:'dd-MM-yyyy')
+                    : "Пусто"}} <button mat-button (click)="openChagePlanTime()">Изменить</button>
+                </span>
+                <div class="datepick" *ngIf="chagePlanTimeB">
+                    <mat-form-field>
+                        <mat-label>Выберите дату</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="datepicker">
+                        <mat-hint>дд/мм/ГГГГ</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <button mat-stroked-button (click)="chagePlanTime()">Подтвердить</button>
+                </div>
+                
+                <br>
+                <span>Дата закрытия: @if(taskInfo.taskCloseDate){ {{taskInfo.taskCloseDate | date:'dd-MM-yyyy, h:mm'}} } @else
+                    { Пусто }</span>
+                    <br>
+                <span>Статус заявки: {{taskInfo.taskStatusName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="steps">
+        @for ( i of taskSteps; track i.taskId) {
+        @if(i.taskStepUserId != null){
+        <div class="step-user">
+            <p>Пользователь {{i.taskStepUserId}}: {{i.taskStepText}}</p>
+            <span>{{i.taskStepCreateDate | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+        </div>
+        }@else {
+        <div class="step-syst">
+            <p>{{i.taskStepText}}</p>
+            <span>{{i.taskStepCreateDate | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+        </div>
+        }
+        }
+    </div>
+    }
+    <div class="addstep">
+        <div class="addstep-text">
+            <textarea name="" id="" cols="30" rows="10" maxlength="400" minlength="3" placeholder="Текст шага" [(ngModel)]="addStepText"></textarea>
+        </div>
+        <div class="addstep-but">
+            <button type="button" (click)="addStep()" [disabled]="isInvalid()">Создать шаг</button>
+            <br>
+            <span>{{addStepError}}</span>
+            <br>
+            <button type="button" (click)="changeStatus()">Сменить статус заявки на:</button>
+            <select name="changeStatus" [(ngModel)]="selectedStatus">
+                @for (j of statuses; track j.taskStatusId) {
+                    <option value="{{j.taskStatusId}}" [selected]="j.taskStatusName == taskInfo.taskStatusName">{{j.taskStatusName}}</option>
+                }
+                <option value="aaa" selected>aaaa</option>
+            </select>
+        </div>
+    </div>
+</div>

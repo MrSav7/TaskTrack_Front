@@ -1,0 +1,10 @@
+.mainbody{
+    display: grid;
+    grid-template-columns: 15% auto;
+    gap: 10px;
+    padding-right: 10px;
+}
+
+.sidebar{
+    min-height: 100vh;
+}

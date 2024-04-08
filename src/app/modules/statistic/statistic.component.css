@@ -1,0 +1,34 @@
+.statistic{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+.taskStatus table,td,th{
+    border: 1px solid black
+}
+
+.taskStatus table{
+    text-align: center;
+}
+
+.stat-head{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.calendar{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.calendar button{
+    border: 1px solid black;
+    padding: 5px;
+}

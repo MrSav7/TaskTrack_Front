@@ -1,0 +1,58 @@
+.user-block table,td,th{
+    border: 1px solid black
+}
+
+.user-block{
+    margin-bottom: 30px;
+}
+.user-block table{
+    text-align: center;
+}
+
+.stat-head{
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.changeUserStatus{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.changeUserStatus button{
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.create-user-body div{
+    margin-bottom: 10px;
+}
+
+.create-user-body input,select, textarea{
+    border: 1px solid #cfcece;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.reg button{
+    font-size: 1.25em;
+    border: 1px solid #858585;
+    border-radius: 3px;
+}
+
+.openForm{
+    font-size: 1.25em;
+    border: 1px solid #858585;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.create-user h2{
+    font-size: 1.5em;
+}
+
+.create-task h2{
+    font-size: 1.5em;
+}

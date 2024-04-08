@@ -1,0 +1,60 @@
+<div class="maintask shadow-xl rounded-md p-10 mb-10 secondbg">
+    <div class="taskview">
+        <div class="taskview-header">
+            <span>Заявки</span>
+        </div>
+        <div class="taskview-body">
+            @for (i of tasksArr; track i.taskId) {
+                <div class="task">
+                    <a [routerLink]="['opentask', i.taskId]">
+                    <div class="task-header">
+                        <div class="taskview-header-info">
+                            <span>{{i.taskId}}</span> <span>{{i.productTypeName}}</span> <span>{{i.brandName}}</span> <span>{{i.taskProductModel}}</span>
+                        </div>
+                        <span>Дата создания {{i.taskCreateDate | date:'dd-MM-yyyy'}}</span> 
+                    </div>
+                    <div class="task-body">
+                        <div class="task-body-last">
+                            <p></p>
+                        </div>
+                        <div class="task-body-descrp">
+                            <span>Статус заявки: {{i.taskStatusName}}</span>
+                            @if(i.taskPlanExeTime != null){
+                                <br>
+                                <span>Планируемая дата закрытия: {{i.taskPlanExeTime | date:'dd-MM-yyyy'}}</span>
+                            }
+                            @if(i.taskCloseDate != null){
+                                <br>
+                                <span>Дата закрытия: {{i.taskCloseDate | date:'dd-MM-yyyy'}}</span>
+                            }
+                        </div>
+                    </div>
+                    </a>
+                     
+                </div>
+            }
+            <!-- <div class="task">
+                <div class="task-header">
+                    <div>
+                        <span>Task id</span> <span>Task Product type</span> <span>Task brand</span> <span> Task model</span>
+                    </div>
+                    <span>Task exeutors</span> 
+                </div>
+                <div class="task-body">
+                    <div class="task-body-last">
+                        <p> last step</p>
+                    </div>
+                    <div class="task-body-descrp">
+                        <span>Create date</span>
+                        <br>
+                        <span>TaskPlanExeTime / TaskCloseDate</span>
+                        <br>
+                        <span>Task Status</span>
+                    </div>
+                </div>
+                 
+            </div> -->
+        </div>
+    </div>
+    
+</div>

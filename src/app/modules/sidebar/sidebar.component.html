@@ -1,0 +1,5 @@
+<nav class="flex flex-col min-w-60 pl-8 pt-10 gap-y-2">
+    @for(i of menuItems; track i.menuItemId ){
+        <a routerLink="{{i.menuItemsRoute}}">{{i.menuItemName}}</a>
+    }
+</nav>

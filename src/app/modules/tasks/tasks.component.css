@@ -1,0 +1,27 @@
+.task-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-body{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.task{
+    background: rgb(235 233 233);
+    padding: 5px;
+    border: 1px solid #8d8686;
+}
+
+.taskview-header{
+    background: rgb(197 197 197);
+    font-size: 2em;
+    text-shadow: 4px 4px 9px #626161;
+    padding-left: 15px;
+}
+
+.taskview-header-info span{
+    margin-right: 10px;
+}

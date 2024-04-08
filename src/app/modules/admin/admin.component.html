@@ -1,0 +1,163 @@
+<section class="admin">
+    @if (users) {
+        <div class="user-block">
+            <div class="stat-head">
+                <h2>Статистика по пользователям</h2>
+            </div>
+            <table>
+                <tr>
+                    <th>Id пользователя</th>
+                    <th>Логин</th>
+                    <th>Пользователь</th>
+                    <th>Дата создания</th>
+                    <th>Почта</th>
+                    <th>Статус</th>
+                    <th>Роль</th>
+                    <th>Задач открыто</th>
+                </tr>
+                @for(i of users; track i.userId){
+                <tr>
+                    <td>{{i.userId}}</td>
+                    <td>{{i.userLogin}}</td>
+                    <td>{{i.userFirstName + ' ' + i.userLastName+' '+i.userMiddleName}}</td>
+                    <td>{{i.userCreateDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{i.userEmail}}</td>
+                    <td class="changeUserStatus">
+                        <select #statysSel>
+                            @for(j of userStatuses; track j.userActStId){
+                                <option [value]="j.userActStId" [selected]="j.userActStId == toNumber(i.userActiveStatus)">{{j.userActStName}}</option>
+                            }
+                        </select>
+                        <button  type="button" (click)="changeUserStatus(i.userId, toNumber(statysSel.value), toNumber(i.userActiveStatus))">Подтвердить</button>
+                    </td>
+                    <td>{{i.roleTextName}}</td>
+                    <td>{{i.taskNotClosed}}</td>
+                </tr>
+                }
+            </table>
+        </div>
+    }
+
+    <div class="create-user">
+        <button type="button" class="openForm" (click)="openForm()">
+            @if(!formOpen){
+                Открыть форму регистрации
+            }
+            @else{
+                Закрыть форму регистрации
+            }
+            </button>
+        @if(formOpen){
+            <form [formGroup]="userForm">
+                <h2>Создать нового пользователя</h2>
+                <div class="create-user-body">
+                    <div>
+                        <label for="userLogin">Логин</label>
+                        <input type="text" formControlName="UserLogin">
+                    </div>
+                    <div>
+                        <label for="userPassword">Пароль</label>
+                        <input type="password" id="userPassword" formControlName="UserPassword">
+                    </div>
+                    <div>
+                        <label for="userFirstName">Имя</label>
+                        <input type="text" id="userFirstName" formControlName="UserFirstName">
+                    </div>
+                    <div>
+                        <label for="userLastName">Фамилия</label>
+                        <input type="text" id="userLastName" formControlName="UserLastName">
+                    </div>
+                    <div>
+                        <label for="userMiddleName">Отчество</label>
+                        <input type="text" id="userMiddleName" formControlName="UserMiddleName">
+                    </div>
+                    <div>
+                        <label for="userEmail">Email</label>
+                        <input type="email" id="userEmail" formControlName="UserEmail">
+                    </div>
+                    <div>
+                        <label>Роль</label>
+                        <select formControlName="UserRoleId">
+                            @for(x of userRoles; track x.roleId){
+                                <option [value]="x.roleId" [selected]="x.roleIsDefault">{{x.roleTextName}}</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="reg">
+                        <button mat-flat-button [disabled]="!userForm.valid" (click)="regNewUser()">Создать пользователя</button>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+
+    <div class="create-task">
+        <button type="button" class="openForm" (click)="openTaskForm()">
+            @if(!formTaskOpen){
+            Открыть форму новой заявки
+        }
+        @else{
+            Закрыть форму новой заявки
+        }</button>
+        @if(formTaskOpen){
+            <form [formGroup]="taskForm">
+                <h2>Новая заявка</h2>
+                <div class="create-user-body">
+                    <div>
+                        <label>Производитель</label>
+                        <select formControlName="TaskItemBrandId">
+                            @for(x of brands; track x.brandId){
+                                <option [value]="x.brandId" >{{x.brandName}}</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label>Тип товара</label>
+                        <select formControlName="TaskProductTypeId">
+                            @for(x of prodTypes; track x.productTypeId){
+                                <option [value]="x.productTypeId" >{{x.productTypeName}}</option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label>Название модели</label>
+                        <input type="text" formControlName="TaskProductModel">
+                    </div>
+                    <div>
+                        <label>Причина обращения</label>
+                        <textarea cols="20" rows="5" formControlName="TaskUserProblemDesc"></textarea>
+                    </div>
+                    <div>
+                        <label>Имя заявителя</label>
+                        <input type="text"formControlName="TaskCustomerFirstName">
+                    </div>
+                    <div>
+                        <label>Фамилия заявителя</label>
+                        <input type="text"formControlName="TaskCustomerLastName">
+                    </div>
+                    <div>
+                        <label>Отчество заявителя</label>
+                        <input type="text" formControlName="TaskCustomerMiddleName">
+                    </div>
+                    <div>
+                        <label>Номер телефона</label>
+                        <input type="text" formControlName="TaskCustomerPhone">
+                    </div>
+                    <div>
+                        <label>Исполнитель</label>
+                        <select formControlName="ExecutorId">
+                            @for(x of users; track x.userId){
+                                <option [value]="x.userId" >{{x.userLastName + ' ' + x.userFirstName[0]}} </option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="reg">
+                        <button mat-flat-button [disabled]="!taskForm.valid" (click)="createNewTask()">Создать заявку</button>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</section>

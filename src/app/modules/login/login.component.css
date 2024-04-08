@@ -1,0 +1,9 @@
+.loginBody{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.loginBody input{
+    max-width: 200px;
+}

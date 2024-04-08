@@ -1,0 +1,135 @@
+<section class="statistic">
+    <div class="taskStatus">
+        <div class="stat-head">
+            <h2>Общая статистика</h2>
+        </div>
+        <table>
+            <tr>
+                <th>Период</th>
+                <th>Задач не закрыто</th>
+                <th>Задач в работе</th>
+                <th>Задач выполненных</th>
+                <th>Задач закрытых</th>
+                <th>Созданных</th>
+            </tr>
+            @for(i of TaskStastus; track i.timePeriod){
+            <tr>
+                <td>{{i.timePeriod}}</td>
+                <td>{{i.notClosed}}</td>
+                <td>{{i.inWork}}</td>
+                <td>{{i.completed}}</td>
+                <td>{{i.closed}}</td>
+                <td>{{i.created}}</td>
+            </tr>
+            }
+        </table>
+    </div>
+    @if(TaskStatF){
+    <div class="taskStatus">
+        <div class="stat-head">
+            <h2>Статистика за период: {{TaskStatF.timePeriod}}</h2>
+        </div>
+        <table>
+            <tr>
+                <th>Задач не закрыто</th>
+                <th>Задач в работе</th>
+                <th>Задач выполненных</th>
+                <th>Задач закрытых</th>
+                <th>Созданных</th>
+            </tr>
+            <tr>
+                <td>{{TaskStatF.notClosed}}</td>
+                <td>{{TaskStatF.inWork}}</td>
+                <td>{{TaskStatF.completed}}</td>
+                <td>{{TaskStatF.closed}}</td>
+                <td>{{TaskStatF.created}}</td>
+            </tr>
+        </table>
+    </div>
+    }
+
+    @if(showFilter){
+    <div class="calendar">
+        <mat-form-field>
+            <mat-label>Выберите даты периода</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="С" [(ngModel)]="dateStart">
+                <input matEndDate placeholder="До" [(ngModel)]="dateEnd">
+            </mat-date-range-input>
+            <mat-hint>дд/мм/ГГГГ – дд/мм/ГГГГ</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        @if(dateStart && dateEnd){
+        <button type="button" (click)="showFilteredStat()">Показать статистику</button>
+        }
+    </div>
+    }
+    <button type="button" (click)="showFilter=!showFilter">Показать статистику за период</button>
+
+
+    <div class="taskStatus">
+        <div class="stat-head">
+            <h2>Статистика по пользователям</h2>
+        </div>
+        <table>
+            <tr>
+                <th>Id пользователя</th>
+                <th>Пользователь</th>
+                <th>Задач не закрыто</th>
+                <th>Задач закрыто</th>
+                <th>Задач всего</th>
+            </tr>
+            @for(i of TaskStatUser; track i.userId){
+            <tr>
+                <td>{{i.userId}}</td>
+                <td>{{i.userFirstName + ' ' + i.userLastName}}</td>
+                <td>{{i.notCloset}}</td>
+                <td>{{i.closet}}</td>
+                <td>{{i.total}}</td>
+            </tr>
+            }
+        </table>
+    </div>
+
+    @if(TaskStatBr){
+        <div class="taskStatus">
+            <div class="stat-head">
+                <h2>Статистика по брендам</h2>
+            </div>
+            <table>
+                <tr>
+                    <th>Имя бренда</th>
+                    <th>Кол-во задач</th>
+                </tr>
+                @for(i of TaskStatBr; track i.brandId){
+                <tr>
+                    <td>{{i.brandName}}</td>
+                    <td>{{i.total}}</td>
+                </tr>
+                }
+            </table>
+        </div>
+    }
+
+    @if(TaskStatPrT){
+        <div class="taskStatus">
+            <div class="stat-head">
+                <h2>Статистика по категориям</h2>
+            </div>
+            <table>
+                <tr>
+                    <th>Имя категории</th>
+                    <th>Кол-во задач</th>
+                </tr>
+                @for(i of TaskStatPrT; track i.productTypeId){
+                <tr>
+                    <td>{{i.productTypeName}}</td>
+                    <td>{{i.total}}</td>
+                </tr>
+                }
+            </table>
+        </div>
+    }
+
+</section>

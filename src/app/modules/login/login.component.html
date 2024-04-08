@@ -1,0 +1,6 @@
+<div class="loginBody">
+    <input required type="text" name="login" placeholder="Введите логин" [(ngModel)]="username">
+    <input required type="password" name="password" placeholder="Введите пароль" [(ngModel)]="password">
+    <button (click)="login()">Войти</button>
+    <div *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>
